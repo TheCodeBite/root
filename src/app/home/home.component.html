@@ -1,0 +1,568 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <div style="margin-top: 1.5em; margin: 1em;">
+                <h5>Seleccione una clase</h5>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn {{premier}} btn-sm btn-block" (click)="choose_btn(1)">Premier</button>
+                    </div>
+
+                    <div class="col">
+                        <button class="btn {{lite}} btn-sm btn-block" (click)="choose_btn(2)">Lite</button>
+                    </div>
+
+                    <div class="col">
+                        <button class="btn {{estandar}} btn-sm btn-block" (click)="choose_btn(3)">Estandar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5em;">
+                <h3>Mis autobuses</h3>
+                <hr>
+            </div>
+
+            <div *ngIf="value == 1" class="row" style="margin-top: 2em;">
+                <div class="col" *ngFor="let item of autobuses_premier">
+                    <div class="card mb-3" style="max-width: 18rem;">
+                        <div class="card-header">
+                            Autobus {{item.nombre}}
+                        </div>
+
+                        <div class="card-body">
+                            <p>Clase: Premier</p>
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addIntinerario"
+                                (click)="btn_itinerario(item.id)">Itinerario</button>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-info btn-sm btn-block" data-toggle="modal"
+                                        data-target="#Historial_modal">Historial</button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-danger btn-sm btn-block"
+                                        (click)="confirm_delete()">Matenimiento</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="value == 2">
+
+
+                <div class="row">
+                    <div class="col" *ngFor="let item of autobuses_lite">
+                        <div class="card mb-3" style="max-width: 18rem;">
+                            <div class="card-header">
+                                Autobus {{item.nombre}}
+                            </div>
+
+                            <div class="card-body">
+                                <p>Clase: Lite</p>
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addIntinerario"
+                                    (click)="btn_itinerario(item.id)">Itinerario</button>
+                            </div>
+
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col">
+                                        <button class="btn btn-info btn-sm btn-block" data-toggle="modal"
+                                            data-target="#Historial_modal">Historial</button>
+                                    </div>
+                                    <div class="col">
+                                        <button class="btn btn-danger btn-sm btn-block"
+                                            (click)="confirm_delete()">Matenimiento</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="value == 3" class="row">
+                <div class="col" *ngFor="let item of autobuses_estandar">
+                    <div class="card mb-3" style="max-width: 18rem;">
+                        <div class="card-header">
+                            Autobus {{item.nombre}}
+                        </div>
+
+                        <div class="card-body">
+                            <p>Clase: Estandar</p>
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addIntinerario"
+                                (click)="btn_itinerario(item.id)">Itinerario</button>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-info btn-sm btn-block" data-toggle="modal"
+                                        data-target="#Historial_modal">Historial</button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-danger btn-sm btn-block"
+                                        (click)="confirm_delete()">Matenimiento</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Historial-->
+            <div class="modal fade bd-example-modal-xl" id="Historial_modal" tabindex="-1" role="dialog"
+                aria-labelledby="Historial_modal" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="Historial_modal">Historial</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Fecha de pago</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Cliente</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2" style="margin-top: 3em; text-align: center;">
+            <h5>Registros</h5>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-outline-danger btn-sm btn-lg btn-block" data-toggle="modal"
+                        data-target="#agregar_clase">Clase</button>
+                </div>
+
+                <div class="col">
+                    <button class="btn btn-outline-info btn-sm btn-lg btn-block">Ver</button>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-outline-danger btn-sm btn-lg btn-block" data-toggle="modal"
+                        data-target="#addRuta">Viaje</button>
+                </div>
+
+                <div class="col">
+                    <button class="btn btn-outline-info btn-sm btn-lg btn-block" data-toggle="modal"
+                        data-target="#detallesViajes">Ver</button>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-outline-danger btn-sm btn-lg btn-block" data-toggle="modal"
+                        data-target="#agregar_autobus">Autobus</button>
+                </div>
+
+                <div class="col">
+                    <button class="btn btn-outline-info btn-sm btn-lg btn-block" data-toggle="modal"
+                        data-target="#detallesAutobuses">Ver</button>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-outline-danger btn-sm btn-block" data-toggle="modal"
+                        data-target="#addLugar">Lugar</button>
+                </div>
+
+                <div class="col">
+                    <button class="btn btn-outline-info btn-sm btn-lg btn-block" data-toggle="modal"
+                        data-target="#detallesLugares">Ver</button>
+                </div>
+            </div><br>
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-outline-danger btn-sm btn-lg btn-block" data-toggle="modal"
+                        data-target="#addHora">Hora</button>
+                </div>
+
+                <div class="col">
+                    <button class="btn btn-outline-info btn-sm btn-lg btn-block" data-toggle="modal" data-target="#detallesHorarios">Ver</button>
+                </div>
+            </div><br>
+        </div>
+
+
+
+        <!-- Modal INSERTAR CLASE -->
+        <div class="modal fade" id="agregar_clase" tabindex="-1" role="dialog" aria-labelledby="agregar_clase"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="agregar_clase">Nueva clase</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_clase" (submit)="agregarClase()">
+                            <label>Clase:</label>
+                            <input type="text" formControlName="nombre" class="form-control" placeholder="Premier">
+
+                            <label>Costo:</label>
+                            <input type="number" formControlName="costo" class="form-control" placeholder="250"><br>
+
+                            <input type="submit" class="btn btn-primary btn-sm btn-block" value="Agregar">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal INSERTAR AUTOBUS -->
+        <div class="modal fade" id="agregar_autobus" tabindex="-1" role="dialog" aria-labelledby="agregar_autobus"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="agregar_autobus">Nueva clase</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_autobus" (submit)="agregar_autobus()">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Nombre:</label>
+                                    <input type="text" formControlName="nombre" class="form-control" placeholder="RL00">
+                                </div>
+
+                                <div class="col">
+                                    <label>Clase</label>
+                                    <select formControlName="clase" class="form-control">
+                                        <option *ngFor="let item of clases" value="{{item.id}}">{{item.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div><br>
+
+                            <input type="submit" class="btn btn-success btn-block btn-sm" value="Agregar">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Lugar -->
+        <div style="margin-top: center;" class="modal fade" id="addLugar" tabindex="-1" role="dialog"
+            aria-labelledby="addLugar" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addLugar">Nuevo lugar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_lugar" (submit)="agregar_lugar()">
+                            <label>Nombre:</label>
+                            <input formControlName="nombre" type="text" class="form-control"><br>
+
+                            <button type="submit" class="form-control btn btn-success btn-block">Agregar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal HORARIO -->
+        <div style="margin-top: center;" class="modal fade" id="addHora" tabindex="-1" role="dialog"
+            aria-labelledby="addHora" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addHora">Nuevo Horario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_horario" (submit)="agregar_Hora()">
+                            <label>Hora:</label>
+                            <input formControlName="hora" type="time" class="form-control"><br>
+
+                            <button type="submit" class="form-control btn btn-success btn-block">Agregar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal ITINERARIO -->
+        <div style="margin-top: center;" class="modal fade" id="addIntinerario" tabindex="-1" role="dialog"
+            aria-labelledby="addIntinerario" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addIntinerario">Nuevo Itinerario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_itinerario" (submit)="agregar_itinerario()">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Fecha de salida:</label>
+                                    <input formControlName="fecha_salida" type="date" class="form-control">
+                                </div>
+
+                                <div class="col">
+                                    <label>Fecha de regreso:</label>
+                                    <input formControlName="fecha_regreso" type="date" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label>Viaje:</label>
+                                    <select formControlName="viaje" class="form-control">
+                                        <option *ngFor="let item of viajes" value="{{item.id}}">{{item.nombre_origen}} -
+                                            {{item.nombre_destino}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <label>Horario:</label>
+                                    <select formControlName="hora" class="form-control">
+                                        <option *ngFor="let item of horarios" value="{{item.id}}">{{item.hora}}</option>
+                                    </select>
+                                </div>
+                            </div><br>
+
+                            <button type="submit" class="form-control btn btn-success btn-block">Agregar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Lugar -->
+        <div style="margin-top: center;" class="modal fade" id="addRuta" tabindex="-1" role="dialog"
+            aria-labelledby="addRuta" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addRuta">Viaje</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_viajes" (submit)="agregar_ruta()">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Origen:</label>
+                                    <select formControlName="origen" class="form-control">
+                                        <option *ngFor="let item of rutas" value="{{item.id}}">{{item.nombre}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <label>Destino:</label>
+                                    <select formControlName="destino" class="form-control">
+                                        <option *ngFor="let item of rutas" value="{{item.id}}">{{item.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label>Distancia(km):</label>
+                                    <input formControlName="km" type="number" class="form-control">
+                                </div>
+                            </div><br>
+
+                            <input type="submit" class="btn btn-success btn-block" value="Agregar">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal LISTA LUGARES -->
+        <div style="margin-top: center;" class="modal fade bd-example-modal-lg" id="detallesLugares" tabindex="-1"
+            role="dialog" aria-labelledby="detallesLugares" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detallesLugares">Lugares</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of rutas; let i = index">
+                                    <th scope="row">{{i + 1}}</th>
+                                    <td>{{item.nombre}}</td>
+                                    <td><button class="btn btn-primary btn-sm">Editar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal LISTA AUTOBUSES -->
+        <div style="margin-top: center;" class="modal fade bd-example-modal-lg" id="detallesAutobuses" tabindex="-1"
+            role="dialog" aria-labelledby="detallesAutobuses" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detallesAutobuses">Autobuses</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of autobuses; let i = index">
+                                    <th scope="row">{{i + 1}}</th>
+                                    <td>{{item.nombre}}</td>
+                                    <td>{{item.estado}}</td>
+                                    <td><button class="btn btn-primary btn-sm">Editar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal LISTA VIAJES -->
+        <div style="margin-top: center;" class="modal fade bd-example-modal-lg" id="detallesViajes" tabindex="-1"
+            role="dialog" aria-labelledby="detallesViajes" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detallesViajes">Viajes</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Origen</th>
+                                    <th scope="col">Destino</th>
+                                    <th scope="col">Kilometros</th>
+                                    <th scope="col">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of viajes; let i = index">
+                                    <th scope="row">{{i + 1}}</th>
+                                    <td>{{item.nombre_origen}}</td>
+                                    <td>{{item.nombre_destino}}</td>
+                                    <td>{{item.km}}</td>
+                                    <td><button class="btn btn-primary btn-sm">Editar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal LISTA HORARIOS -->
+        <div style="margin-top: center;" class="modal fade bd-example-modal-lg" id="detallesHorarios" tabindex="-1"
+            role="dialog" aria-labelledby="detallesHorarios" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detallesHorarios">Horarios</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Horario</th>
+                                    <th scope="col">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of horarios; let i = index">
+                                    <th scope="row">{{i + 1}}</th>
+                                    <td>{{item.hora}}</td>
+                                    <td><button class="btn btn-primary btn-sm">Editar</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

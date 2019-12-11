@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   rutas: any = [];
   horarios: any = [];
   viajes: any = [];
+  historial: any = [];
 
   autobuses_premier = [];
   autobuses_lite = [];
@@ -23,6 +24,8 @@ export class HomeComponent implements OnInit {
 
   value = 1;
   id_autobus = null;
+
+  editar = false;
 
   lite = 'btn-secondary'
   premier = 'btn-danger'
@@ -55,6 +58,10 @@ export class HomeComponent implements OnInit {
       this.viajes = response;
     });
 
+    this.db.verBoletos().subscribe(response => {
+      this.historial = response;
+    })
+
     this.db.verAutobuses().subscribe(response => {
       this.autobuses = response;
       this.autobuses_estandar = [];
@@ -74,10 +81,12 @@ export class HomeComponent implements OnInit {
     })
     //FORMULARIOS
     this.form_lugar = this.fb.group({
+      id: [''],
       nombre: ['']
     });
 
     this.form_horario = this.fb.group({
+      id: [''],
       hora: ['']
     })
 
@@ -95,13 +104,18 @@ export class HomeComponent implements OnInit {
     });
 
     this.form_autobus = this.fb.group({
+      id:[''],
+      estado: [''],
       nombre: [''],
       clase: ['']
     });
 
     this.form_viajes = this.fb.group({
+      id:[''],
       destino: [''],
       origen: [''],
+      nombre_origen: [''],
+      nombre_destino: [''],
       km: ['']
     });
 
@@ -184,7 +198,6 @@ export class HomeComponent implements OnInit {
 
   agregar_itinerario() {
     this.form_itinerario.value.autobus = this.id_autobus;
-    console.log(this.form_itinerario.value);
     
 
     this.db.agregarItinerario(this.form_itinerario.value).subscribe(response => {
@@ -198,7 +211,65 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  editar_lugar(){
+    console.log(this.form_lugar.value.id + " " +this.form_lugar.value);
+
+    this.db.editarLugar(this.form_lugar.value.id, this.form_lugar.value).subscribe(response => {
+      console.log(response);
+      Swal.fire(
+        'Dato Editado!',
+        'Lugar editado con exito!',
+        'success'
+      )
+      this.ngOnInit()
+      
+    });
+    
+  }
+
+  editar_autobus(){
+    this.db.editarAutobus(this.form_autobus.value.id, this.form_autobus.value).subscribe(response => {
+      console.log(response);
+      Swal.fire(
+        'Dato Editado!',
+        'Autobus editado con exito!',
+        'success'
+      )
+      this.ngOnInit()
+    });
+  }
+
+  editar_viaje(){
+    this.db.editarViaje(this.form_viajes.value.id, this.form_viajes.value).subscribe(response => {
+      console.log(response);
+      Swal.fire(
+        'Dato Editado!',
+        'Viaje editado con exito!',
+        'success'
+      )
+      this.ngOnInit()
+      
+    })
+  }
+
+  editar_hora(){
+    this.db.editarHorario(this.form_horario.value.id, this.form_horario.value).subscribe(response => {
+      console.log(response);
+      Swal.fire(
+        'Dato Editado!',
+        'Horario editado con exito!',
+        'success'
+      )
+      this.ngOnInit()
+    });
+  }
+
+
   //ACCIONES DE OTROS BOTONES
+
+  btn_historial(id: number){
+    this.id_autobus = id;
+  }
 
   btn_itinerario(id: number) {
     this.id_autobus = id;
@@ -247,4 +318,27 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  agregar(){
+    this.editar = false;
+  }
+
+  btn_editar_autobus(form: any){
+    this.editar = true;
+    this.form_autobus.setValue(form);
+  }
+
+  btn_editar_lugar(form: any){
+    this.editar = true;
+    this.form_lugar.setValue(form);
+  }
+
+  btn_editar_hora(form: any){
+    this.editar = true;
+    this.form_horario.setValue(form);
+  }
+
+  btn_editar_viaje(form: any){
+    this.editar = true;
+    this.form_viajes.setValue(form);
+  }
 }

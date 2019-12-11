@@ -24,8 +24,8 @@
             </div>
 
             <div *ngIf="value == 1" class="row" style="margin-top: 2em;">
-                <div class="col" *ngFor="let item of autobuses_premier">
-                    <div class="card mb-3" style="max-width: 18rem;">
+                <div class="col-md-4" *ngFor="let item of autobuses_premier">
+                    <div class="card mb-4" style="max-width: 18rem;">
                         <div class="card-header">
                             Autobus {{item.nombre}}
                         </div>
@@ -40,7 +40,7 @@
                             <div class="row">
                                 <div class="col">
                                     <button class="btn btn-info btn-sm btn-block" data-toggle="modal"
-                                        data-target="#Historial_modal">Historial</button>
+                                        data-target="#Historial_modal" (click)="btn_historial(item.id)">Historial</button>
                                 </div>
                                 <div class="col">
                                     <button class="btn btn-danger btn-sm btn-block"
@@ -56,8 +56,8 @@
 
 
                 <div class="row">
-                    <div class="col" *ngFor="let item of autobuses_lite">
-                        <div class="card mb-3" style="max-width: 18rem;">
+                    <div class="col-md-4" *ngFor="let item of autobuses_lite">
+                        <div class="card col-md-4 mb-3" style="max-width: 18rem;">
                             <div class="card-header">
                                 Autobus {{item.nombre}}
                             </div>
@@ -72,7 +72,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <button class="btn btn-info btn-sm btn-block" data-toggle="modal"
-                                            data-target="#Historial_modal">Historial</button>
+                                            data-target="#Historial_modal" (click)="btn_historial(item.id)">Historial</button>
                                     </div>
                                     <div class="col">
                                         <button class="btn btn-danger btn-sm btn-block"
@@ -86,8 +86,8 @@
             </div>
 
             <div *ngIf="value == 3" class="row">
-                <div class="col" *ngFor="let item of autobuses_estandar">
-                    <div class="card mb-3" style="max-width: 18rem;">
+                <div class="col-md-4" *ngFor="let item of autobuses_estandar">
+                    <div class="card mb-4" style="max-width: 18rem;">
                         <div class="card-header">
                             Autobus {{item.nombre}}
                         </div>
@@ -102,7 +102,7 @@
                             <div class="row">
                                 <div class="col">
                                     <button class="btn btn-info btn-sm btn-block" data-toggle="modal"
-                                        data-target="#Historial_modal">Historial</button>
+                                        data-target="#Historial_modal" (click)="btn_historial(item.id)">Historial</button>
                                 </div>
                                 <div class="col">
                                     <button class="btn btn-danger btn-sm btn-block"
@@ -129,18 +129,21 @@
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Fecha de pago</th>
+                                        <th scope="col">Fecha de compra</th>
                                         <th scope="col">Cantidad</th>
                                         <th scope="col">Cliente</th>
+                                        <th scope="col">Correo</th>
+                                        <th scope="col">Asiento</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
+                                    <tr *ngFor="let item of historial">
+                                        <td *ngIf="item.autobus == id_autobus">{{item.fecha_venta}}</td>
+                                        <td *ngIf="item.autobus == id_autobus">{{item.costo}}</td>
+                                        <td *ngIf="item.autobus == id_autobus">{{item.nombre}}</td>
+                                        <td *ngIf="item.autobus == id_autobus">{{item.correo}}</td>
+                                        <td *ngIf="item.autobus == id_autobus">{{item.asiento}}</td>
+                                        
                                     </tr>
                                 </tbody>
                             </table>
@@ -160,7 +163,7 @@
             <div class="row">
                 <div class="col">
                     <button class="btn btn-outline-danger btn-sm btn-lg btn-block" data-toggle="modal"
-                        data-target="#agregar_clase">Clase</button>
+                        data-target="#agregar_clase" (click)="agregar()">Clase</button>
                 </div>
 
                 <div class="col">
@@ -171,7 +174,7 @@
             <div class="row">
                 <div class="col">
                     <button class="btn btn-outline-danger btn-sm btn-lg btn-block" data-toggle="modal"
-                        data-target="#addRuta">Viaje</button>
+                        data-target="#addRuta" (click)="agregar()">Viaje</button>
                 </div>
 
                 <div class="col">
@@ -183,7 +186,7 @@
             <div class="row">
                 <div class="col">
                     <button class="btn btn-outline-danger btn-sm btn-lg btn-block" data-toggle="modal"
-                        data-target="#agregar_autobus">Autobus</button>
+                        data-target="#agregar_autobus" (click)="agregar()">Autobus</button>
                 </div>
 
                 <div class="col">
@@ -195,7 +198,7 @@
             <div class="row">
                 <div class="col">
                     <button class="btn btn-outline-danger btn-sm btn-block" data-toggle="modal"
-                        data-target="#addLugar">Lugar</button>
+                        data-target="#addLugar" (click)="agregar()">Lugar</button>
                 </div>
 
                 <div class="col">
@@ -207,7 +210,7 @@
             <div class="row">
                 <div class="col">
                     <button class="btn btn-outline-danger btn-sm btn-lg btn-block" data-toggle="modal"
-                        data-target="#addHora">Hora</button>
+                        data-target="#addHora" (click)="agregar()">Hora</button>
                 </div>
 
                 <div class="col">
@@ -216,213 +219,6 @@
             </div><br>
         </div>
 
-
-
-        <!-- Modal INSERTAR CLASE -->
-        <div class="modal fade" id="agregar_clase" tabindex="-1" role="dialog" aria-labelledby="agregar_clase"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="agregar_clase">Nueva clase</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form [formGroup]="form_clase" (submit)="agregarClase()">
-                            <label>Clase:</label>
-                            <input type="text" formControlName="nombre" class="form-control" placeholder="Premier">
-
-                            <label>Costo:</label>
-                            <input type="number" formControlName="costo" class="form-control" placeholder="250"><br>
-
-                            <input type="submit" class="btn btn-primary btn-sm btn-block" value="Agregar">
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal INSERTAR AUTOBUS -->
-        <div class="modal fade" id="agregar_autobus" tabindex="-1" role="dialog" aria-labelledby="agregar_autobus"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="agregar_autobus">Nueva clase</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form [formGroup]="form_autobus" (submit)="agregar_autobus()">
-                            <div class="row">
-                                <div class="col">
-                                    <label>Nombre:</label>
-                                    <input type="text" formControlName="nombre" class="form-control" placeholder="RL00">
-                                </div>
-
-                                <div class="col">
-                                    <label>Clase</label>
-                                    <select formControlName="clase" class="form-control">
-                                        <option *ngFor="let item of clases" value="{{item.id}}">{{item.nombre}}</option>
-                                    </select>
-                                </div>
-                            </div><br>
-
-                            <input type="submit" class="btn btn-success btn-block btn-sm" value="Agregar">
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Lugar -->
-        <div style="margin-top: center;" class="modal fade" id="addLugar" tabindex="-1" role="dialog"
-            aria-labelledby="addLugar" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addLugar">Nuevo lugar</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form [formGroup]="form_lugar" (submit)="agregar_lugar()">
-                            <label>Nombre:</label>
-                            <input formControlName="nombre" type="text" class="form-control"><br>
-
-                            <button type="submit" class="form-control btn btn-success btn-block">Agregar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Modal HORARIO -->
-        <div style="margin-top: center;" class="modal fade" id="addHora" tabindex="-1" role="dialog"
-            aria-labelledby="addHora" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addHora">Nuevo Horario</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form [formGroup]="form_horario" (submit)="agregar_Hora()">
-                            <label>Hora:</label>
-                            <input formControlName="hora" type="time" class="form-control"><br>
-
-                            <button type="submit" class="form-control btn btn-success btn-block">Agregar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal ITINERARIO -->
-        <div style="margin-top: center;" class="modal fade" id="addIntinerario" tabindex="-1" role="dialog"
-            aria-labelledby="addIntinerario" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addIntinerario">Nuevo Itinerario</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form [formGroup]="form_itinerario" (submit)="agregar_itinerario()">
-                            <div class="row">
-                                <div class="col">
-                                    <label>Fecha de salida:</label>
-                                    <input formControlName="fecha_salida" type="date" class="form-control">
-                                </div>
-
-                                <div class="col">
-                                    <label>Fecha de regreso:</label>
-                                    <input formControlName="fecha_regreso" type="date" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <label>Viaje:</label>
-                                    <select formControlName="viaje" class="form-control">
-                                        <option *ngFor="let item of viajes" value="{{item.id}}">{{item.nombre_origen}} -
-                                            {{item.nombre_destino}}</option>
-                                    </select>
-                                </div>
-
-                                <div class="col">
-                                    <label>Horario:</label>
-                                    <select formControlName="hora" class="form-control">
-                                        <option *ngFor="let item of horarios" value="{{item.id}}">{{item.hora}}</option>
-                                    </select>
-                                </div>
-                            </div><br>
-
-                            <button type="submit" class="form-control btn btn-success btn-block">Agregar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Lugar -->
-        <div style="margin-top: center;" class="modal fade" id="addRuta" tabindex="-1" role="dialog"
-            aria-labelledby="addRuta" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addRuta">Viaje</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form [formGroup]="form_viajes" (submit)="agregar_ruta()">
-                            <div class="row">
-                                <div class="col">
-                                    <label>Origen:</label>
-                                    <select formControlName="origen" class="form-control">
-                                        <option *ngFor="let item of rutas" value="{{item.id}}">{{item.nombre}}</option>
-                                    </select>
-                                </div>
-
-                                <div class="col">
-                                    <label>Destino:</label>
-                                    <select formControlName="destino" class="form-control">
-                                        <option *ngFor="let item of rutas" value="{{item.id}}">{{item.nombre}}</option>
-                                    </select>
-                                </div>
-                            </div><br>
-
-                            <div class="row">
-                                <div class="col">
-                                    <label>Distancia(km):</label>
-                                    <input formControlName="km" type="number" class="form-control">
-                                </div>
-                            </div><br>
-
-                            <input type="submit" class="btn btn-success btn-block" value="Agregar">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Modal LISTA LUGARES -->
         <div style="margin-top: center;" class="modal fade bd-example-modal-lg" id="detallesLugares" tabindex="-1"
@@ -448,7 +244,7 @@
                                 <tr *ngFor="let item of rutas; let i = index">
                                     <th scope="row">{{i + 1}}</th>
                                     <td>{{item.nombre}}</td>
-                                    <td><button class="btn btn-primary btn-sm">Editar</button></td>
+                                    <td><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addLugar" (click)="btn_editar_lugar(item)">Editar</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -484,7 +280,7 @@
                                     <th scope="row">{{i + 1}}</th>
                                     <td>{{item.nombre}}</td>
                                     <td>{{item.estado}}</td>
-                                    <td><button class="btn btn-primary btn-sm">Editar</button></td>
+                                    <td><button (click)="btn_editar_autobus(item)" data-toggle="modal" data-target="#agregar_autobus" class="btn btn-primary btn-sm">Editar</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -521,7 +317,7 @@
                                     <td>{{item.nombre_origen}}</td>
                                     <td>{{item.nombre_destino}}</td>
                                     <td>{{item.km}}</td>
-                                    <td><button class="btn btn-primary btn-sm">Editar</button></td>
+                                    <td><button class="btn btn-primary btn-sm" data-toggle="modal" (click)="btn_editar_viaje(item)" data-target="#addRuta">Editar</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -554,10 +350,231 @@
                                 <tr *ngFor="let item of horarios; let i = index">
                                     <th scope="row">{{i + 1}}</th>
                                     <td>{{item.hora}}</td>
-                                    <td><button class="btn btn-primary btn-sm">Editar</button></td>
+                                    <td><button class="btn btn-primary btn-sm" data-toggle="modal" (click)="btn_editar_hora(item)" data-target="#addHora">Editar</button></td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+        <!-- Modal INSERTAR AUTOBUS -->
+        <div class="modal fade" id="agregar_autobus" tabindex="1" role="dialog" aria-labelledby="agregar_autobus"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="agregar_autobus">Nueva clase</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_autobus">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Nombre:</label>
+                                    <input type="text" formControlName="nombre" class="form-control" placeholder="RL00">
+                                </div>
+
+                                <div class="col">
+                                    <label>Clase</label>
+                                    <select formControlName="clase" class="form-control">
+                                        <option *ngFor="let item of clases" value="{{item.id}}">{{item.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div><br>
+
+                            <input *ngIf="editar == false" class="btn btn-success btn-block btn-sm" (click)="agregar_autobus()" value="Agregar">
+                            <input *ngIf="editar" class="btn btn-success btn-block btn-sm" (click)="editar_autobus()" value="Editar">
+                           
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal INSERTAR CLASE -->
+        <div class="modal fade" id="agregar_clase" tabindex="-1" role="dialog" aria-labelledby="agregar_clase"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="agregar_clase">Nueva clase</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_clase">
+                            <label>Clase:</label>
+                            <input type="text" formControlName="nombre" class="form-control" placeholder="Premier">
+
+                            <label>Costo:</label>
+                            <input type="number" formControlName="costo" class="form-control" placeholder="250"><br>
+
+                            <input *ngIf="editar == false" (click)="agregarClase()" class="btn btn-primary btn-sm btn-block" value="Agregar">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Modal Lugar -->
+        <div style="margin-top: center;" class="modal fade" id="addLugar" tabindex="1" role="dialog"
+            aria-labelledby="addLugar" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addLugar">Nuevo lugar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_lugar">
+                            <label>Nombre:</label>
+                            <input formControlName="nombre" type="text" class="form-control"><br>
+
+                            <button (click)="agregar_lugar()" class="form-control btn btn-success btn-block" *ngIf="editar == false">Agregar</button>
+                            <button (click)="editar_lugar()" class="form-control btn btn-success btn-block" *ngIf="editar">Editar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal HORARIO -->
+        <div style="margin-top: center;" class="modal fade" id="addHora" tabindex="-1" role="dialog"
+            aria-labelledby="addHora" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addHora">Nuevo Horario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_horario">
+                            <label>Hora:</label>
+                            <input formControlName="hora" type="time" class="form-control"><br>
+
+                            <button (click)="agregar_Hora()" class="form-control btn btn-success btn-block" *ngIf="editar == false">Agregar</button>
+                            <button (click)="editar_hora()" class="form-control btn btn-success btn-block" *ngIf="editar">Editar</button>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal ITINERARIO -->
+        <div style="margin-top: center;" class="modal fade" id="addIntinerario" tabindex="-1" role="dialog"
+            aria-labelledby="addIntinerario" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addIntinerario">Nuevo Itinerario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_itinerario">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Fecha de salida:</label>
+                                    <input formControlName="fecha_salida" type="date" class="form-control">
+                                </div>
+
+                                <div class="col">
+                                    <label>Fecha de regreso:</label>
+                                    <input formControlName="fecha_regreso" type="date" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label>Viaje:</label>
+                                    <select formControlName="viaje" class="form-control">
+                                        <option *ngFor="let item of viajes" value="{{item.id}}">{{item.nombre_origen}} -
+                                            {{item.nombre_destino}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <label>Horario:</label>
+                                    <select formControlName="hora" class="form-control">
+                                        <option *ngFor="let item of horarios" value="{{item.id}}">{{item.hora}}</option>
+                                    </select>
+                                </div>
+                            </div><br>
+
+                            <button type="submit" (click)="agregar_itinerario()" class="form-control btn btn-success btn-block" *ngIf="editar == false">Agregar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Viaje -->
+        <div style="margin-top: center;" class="modal fade" id="addRuta" tabindex="-1" role="dialog"
+            aria-labelledby="addRuta" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addRuta">Viaje</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form_viajes">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Origen:</label>
+                                    <select formControlName="origen" class="form-control">
+                                        <option *ngFor="let item of rutas" value="{{item.id}}">{{item.nombre}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <label>Destino:</label>
+                                    <select formControlName="destino" class="form-control">
+                                        <option *ngFor="let item of rutas" value="{{item.id}}">{{item.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label>Distancia(km):</label>
+                                    <input formControlName="km" type="number" class="form-control">
+                                </div>
+                            </div><br>
+
+                            <input type="submit" (click)="agregar_ruta()" class="btn btn-success btn-block" value="Agregar" *ngIf="editar == false">
+                            <input type="submit" (click)="editar_viaje()" class="btn btn-success btn-block" value="Editar" *ngIf="editar">
+                            
+                        </form>
                     </div>
                 </div>
             </div>

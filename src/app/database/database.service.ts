@@ -53,4 +53,8 @@ export class DatabaseService {
   verItinerarios(){ return this.http.get(this.url + 'itinerario/'); }
 
   editarItinerario(id: number, intinerario: any){ this.http.put(this.url + 'itinerario/' + id +'/', intinerario); }
+
+  
+  //Boletos
+  verBoletos(){ return this.http.get(this.url + 'boletos/'); }
 }
